@@ -15,7 +15,7 @@ phases:
       docker: 18
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
+      - echo  Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - CODEBUILD_RESOLVED_SOURCE_VERSION="${CODEBUILD_RESOLVED_SOURCE_VERSION:-$IMAGE_TAG}"
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -31,6 +31,6 @@ phases:
       - echo Build stage successfully completed on `date`
       - echo Pushing the Docker image...
       - docker push $IMAGE_URI
-      - printf '[{"name":"nginx","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+      - printf '[{"name":"NGINX","imageUri":"%s"}]' "$IMAGE_URI" > images.json
 artifacts:
   files: images.json
